@@ -5,10 +5,16 @@ import Title from './Title';
 import Date from './Date';
 import Copyright from './Copyright';
 import Explanation from './Explanation';
+import DatePicker from './DatePicker';
 
 function App() {
   const [apiData, setAPIdata] = useState([]);
-  const endpoint = `https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY`
+  const [date, setDate] = useState('');
+  const endpoint = `https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY${date ? `&date=${date}` : ''}`;
+
+  const handleChange = (event) => {
+    setDate(event.target.value);
+  }
 
   useEffect(() => {
     axios.get(endpoint)
@@ -17,11 +23,12 @@ function App() {
       setAPIdata(res.data);
     })
     .catch(error => {
-      console.log(error.message);
+      console.error(error.message);
     })
-  }, [])
+  }, [date])
 
   return (<>
+    <DatePicker date={date} handleChange={handleChange}/>
     <div>
       <Title title={apiData.title}/>
       <Date date={apiData.date}/>
