@@ -6,6 +6,16 @@ import Date from './Date';
 import Copyright from './Copyright';
 import Explanation from './Explanation';
 import DatePicker from './DatePicker';
+import styled from 'styled-components';
+
+const AppContainer = styled.div`
+  background-color: #0D1117;
+  color: #C9D1D9;
+  font-family: 'Arial', sans-serif;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+`
 
 function App() {
   const [apiData, setAPIdata] = useState([]);
@@ -27,7 +37,8 @@ function App() {
     })
   }, [date])
 
-  return (<>
+  return (
+  <AppContainer>
     <DatePicker date={date} handleChange={handleChange}/>
     <div>
       <Title title={apiData.title}/>
@@ -36,7 +47,7 @@ function App() {
     <Image url={apiData.url}/>
     <Copyright copyright={apiData.copyright}/>
     <Explanation explanation={apiData.explanation}/>
-    </>
+  </AppContainer>
   )
 }
 
